@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liberação de Saque</title>
+    <link rel="stylesheet" href="stylesup2.css">
+    <style>
+        .progress-container {
+            width: 100%;
+            max-width: 350px; /* Ajusta a largura máxima */
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px; /* Centraliza e adiciona espaçamento */
+            
+        }
+
+        .progress-bar {
+            width: 99%; /* Define o progresso */
+            height: 100%;
+            background-color: #ff359a;
+        }
+
+        .progress-text {
+            font-weight: bold;
+            text-align: start;
+            font-size: 12px;
+            color: #ff69b4;
+            margin-bottom: 5px; /* Espaço entre o texto e a barra */
+            
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="topo">
+        ⚠️ Sua posição na fila: <span class="numero">56</span>
+    </div>
+
+    <div class="container">
+        <div class="mensagem-container">
+            <h1>🔓 Liberação de Saque!</h1>
+            <p style="font-size: 17px;">
+                Parabéns! Seu saldo foi aprovado para liberação. Agora falta apenas o último passo: o pagamento da 
+                <strong>Taxa de Liberação de Saque</strong>.
+            </p>
+            <p style="font-size: 17px;">
+                A <strong>Taxa de Liberação</strong> no valor de <strong>R$ 49,90</strong> é obrigatória e cobre os custos administrativos e de segurança durante o processo de transferência.
+            </p>
+            <p style="font-size: 17px; margin-bottom: 20px;">
+                Este valor será <strong>totalmente reembolsado</strong> após a confirmação do saque para a sua conta bancária cadastrada.
+            </p>
+
+<!-- Texto e Barra de Progresso -->
+<p class="progress-text">99% concluído</p>
+<div class="progress-container">
+    <div class="progress-bar"></div>
+</div>
+
+            <p class="destaque">
+                APÓS O PAGAMENTO DA TAXA, SEU SAQUE SERÁ IMEDIATAMENTE LIBERADO!
+            </p>
+            <button class="botao-pagar" onclick="realizarPagamento()">PAGAR TAXA DE LIBERAÇÃO E RECEBER MEU SAQUE</button>
+            <p class="mensagem">
+                Clique acima para liberar seu saldo via <strong>PIX</strong> agora.
+            </p>
+           
+        </div>
+    </div>
+
+    <div class="notificacao-container" id="notificacaoContainer"></div>
+
+    <script>
+        // Função para gerar um número aleatório
+        function gerarNumeroAleatorio(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Lista de nomes fictícios
+        const nomes = [
+            "Camila Oliveira",
+            "Eduardo Santos",
+            "Juliana Matos",
+            "Felipe Carvalho",
+            "Bianca Mendes",
+            "Leonardo Batista",
+            "Amanda Ribeiro",
+            "Gustavo Teixeira",
+            "Mariana Figueiredo",
+            "Rodrigo Lopes",
+            "Tatiane Barros",
+            "Vinícius Moreira",
+            "Carolina Ramos",
+            "André Souza",
+            "Larissa Cunha",
+            "Fernando Borges",
+            "Natália Fernandes",
+            "Ricardo Azevedo",
+            "Daniela Castro",
+            "Pedro Henrique",
+            "Letícia Vasconcelos",
+            "Lucas Barreto",
+            "Joana Freitas",
+            "Matheus Almeida",
+            "Vanessa Silveira"
+        ];
+
+        // Referência ao container de notificações
+        const notificacaoContainer = document.getElementById('notificacaoContainer');
+
+        // Função para criar uma nova notificação
+        function criarNotificacao() {
+            // Limita as notificações exibidas
+            if (notificacaoContainer.children.length === 2) {
+                limparNotificacoes();
+            }
+
+            // Escolhe um nome e um valor aleatório
+            const nome = nomes[Math.floor(Math.random() * nomes.length)];
+            const valor = gerarNumeroAleatorio(600, 800); // Valor maior que R$ 383,00
+
+            // Cria o elemento de notificação
+            const notificacao = document.createElement('div');
+            notificacao.classList.add('notificacao');
+            notificacao.innerHTML = `
+                <span><i>✔️</i> <strong>${nome}</strong> sacou R$ ${valor},00</span>
+            `;
+
+            // Adiciona a notificação ao container
+            notificacaoContainer.appendChild(notificacao);
+        }
+
+        // Função para limpar notificações com animação
+        function limparNotificacoes() {
+            const notificacoes = document.querySelectorAll('.notificacao');
+            notificacoes.forEach((notificacao) => {
+                notificacao.classList.add('hidden'); // Adiciona classe para sumir com animação
+                setTimeout(() => notificacao.remove(), 500); // Remove do DOM após a animação
+            });
+        }
+
+        // Intervalo para criar notificações (3 segundos)
+        setInterval(criarNotificacao, 3000); // 3000ms = 3 segundos
+
+        // Atualiza a posição na fila com um número aleatório
+        const elementoNumero = document.querySelector('.numero');
+        elementoNumero.textContent = gerarNumeroAleatorio(1, 100);
+
+        // Redireciona para o pagamento
+        function realizarPagamento() {
+            window.location.href = 'https://pay.seupagseguro.com/checkout/dd7a2dc7-533f-4aaf-919e-e28f3b291c0f';
+        }
+    </script>
+</body>
+
+</html>

